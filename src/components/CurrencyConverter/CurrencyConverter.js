@@ -12,6 +12,7 @@ import {
 import "./CurrencyConverter.css";
 
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import CurrencyInput from "../CurrencyInput/CurrencyInput";
 
 export default function CurrencyConverter() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function CurrencyConverter() {
     ("0" + new Date().getDate()).slice(-2);
   const [date, setDate] = useState(today);
   const [currencyFrom, setCurrencyFrom] = useState("EUR");
-  const [currencyTo, setCurrencyTo] = useState("EUR");
+  const [currencyTo, setCurrencyTo] = useState("USD");
   const [inputAmount, setInputAmount] = useState(0);
   const result = useSelector(selectRoundedResult);
   const allCurrencies = useSelector(selectAllCurrecies);
@@ -43,6 +44,7 @@ export default function CurrencyConverter() {
     const tempTo = currencyTo;
     setCurrencyTo(tempFrom);
     setCurrencyFrom(tempTo);
+    console.log(tempTo);
   };
 
   return (
@@ -133,7 +135,7 @@ export default function CurrencyConverter() {
             </Form.Group>
           </Col>
         </Row>
-        <Button variant="success" onClick={currencyAmountInput}>
+        <Button variant="success" onClick={currencyAmountInput} block>
           Convert!
         </Button>
       </Form>

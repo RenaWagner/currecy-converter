@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
     case "historicalRate/historicalDataResult": {
       return {
         ...state,
-        rates: [...action.payload],
+        rates: action.payload,
       };
     }
     default:

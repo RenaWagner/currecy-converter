@@ -10,19 +10,49 @@ export const fetchHistoricalData = (
 ) => async (dispatch, getState) => {
   try {
     dispatch(appLoading);
-    const res = await axios.get(
-      `${apiUrl}/history?start_at=${startDate}&end_at=${endDate}&symbols=${currencyFrom},${currencyTo}`
-    );
+    if (currencyFrom === "EUR") {
+      const res = await axios.get(
+        `${apiUrl}/history?start_at=${startDate}&end_at=${endDate}&symbols=${currencyTo}`
+      );
+      const result = res.data.rates;
+      const historicalDates = Object.keys(result);
+      const historicalRate = historicalDates.map((date) => {
+        return {
+          date: date,
+          rate: result[date][currencyTo],
+        };
+      });
+      dispatch(historicalDataResult(historicalRate));
+    } else if (currencyTo === "EUR") {
+      const res = await axios.get(
+        `${apiUrl}/history?start_at=${startDate}&end_at=${endDate}&symbols=${currencyFrom}`
+      );
+      const result = res.data.rates;
+      const historicalDates = Object.keys(result);
+      const historicalRate = historicalDates.map((date) => {
+        return {
+          date: date,
+          rate: 1 / result[date][currencyFrom],
+        };
+      });
+      dispatch(historicalDataResult(historicalRate));
+    } else {
+      const res = await axios.get(
+        `${apiUrl}/history?start_at=${startDate}&end_at=${endDate}&symbols=${currencyFrom},${currencyTo}`
+      );
 
-    const result = res.data.rates; //this is an object
+      const result = res.data.rates;
+      const historicalDates = Object.keys(result);
 
-    const historicalDates = Object.keys(result); //this is an array
+      const historicalRate = historicalDates.map((date) => {
+        return {
+          date: date,
+          rate: result[date][currencyTo] / result[date][currencyFrom],
+        };
+      });
+      dispatch(historicalDataResult(historicalRate));
+    }
 
-    const historicalRate = historicalDates.map((date) => {
-      return { date: date, rate: result[date].USD / result[date].JPY };
-    });
-    console.log(historicalRate);
-    dispatch(historicalDataResult(historicalRate));
     dispatch(appDoneLoading());
   } catch (error) {
     if (error.response) {

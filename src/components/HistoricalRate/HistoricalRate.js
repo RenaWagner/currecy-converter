@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Line } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
+import { selectRoundedResult } from "../../store/currency/selectors";
 import { fetchHistoricalData } from "../../store/historicalRate/actions";
 import { selectHistoricalData } from "../../store/historicalRate/selectors";
+import CurrencyInput from "../CurrencyInput/CurrencyInput";
 
-export default function HistoricarRate() {
+export default function HistoricalRate() {
   const dispatch = useDispatch();
   const today =
     new Date().getFullYear() +
@@ -25,33 +27,40 @@ export default function HistoricarRate() {
   const [startDate, setStartDate] = useState(yearAgo);
   const [endDate, setEndDate] = useState(today);
   const historicalResults = useSelector(selectHistoricalData);
-  const currencyFrom = "JPY";
-  const currencyTo = "USD";
+  const roundedResults = useSelector(selectRoundedResult);
+  const currencyFrom = roundedResults.currencyFrom || "EUR";
+  const currencyTo = roundedResults.currencyTo || "USD";
+  console.log(roundedResults);
 
-  console.log(historicalResults);
+  const dates = historicalResults.map((result) => {
+    return result.date;
+  });
+  const historicalData = historicalResults.map((result) => {
+    return result.rate;
+  });
 
   const historicalDataClicked = () => {
     dispatch(fetchHistoricalData(startDate, endDate, currencyFrom, currencyTo));
   };
 
   const state = {
-    labels: ["January", "February", "March", "April", "May"],
+    labels: dates,
     datasets: [
       {
-        label: "Rainfall",
+        label: "Exchange Rate",
         fill: false,
         lineTension: 0.5,
         backgroundColor: "rgba(75,192,192,1)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
-        data: [65, 59, 80, 81, 56],
+        data: historicalData,
       },
     ],
   };
 
   return (
     <Container>
-      <h4>Historical Exchange Rate of "CurrencyFrom(USD)"</h4>
+      <h4>Historical Exchange Rate Checker</h4>
       <Form>
         <Row>
           <Col>
@@ -79,7 +88,7 @@ export default function HistoricarRate() {
             </Form.Group>
           </Col>
         </Row>
-        <Button variant="success" onClick={historicalDataClicked}>
+        <Button variant="success" onClick={historicalDataClicked} block>
           Check!
         </Button>
       </Form>
@@ -88,7 +97,7 @@ export default function HistoricarRate() {
         options={{
           title: {
             display: true,
-            text: "Average Rainfall per month",
+            text: `Exchange rate: ${currencyFrom} in ${currencyTo}`,
             fontSize: 20,
           },
           legend: {
