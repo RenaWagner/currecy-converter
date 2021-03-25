@@ -28,9 +28,9 @@ export default function HistoricalRate() {
   const [endDate, setEndDate] = useState(today);
   const historicalResults = useSelector(selectHistoricalData);
   const roundedResults = useSelector(selectRoundedResult);
-  const currencyFrom = roundedResults.currencyFrom || "EUR";
-  const currencyTo = roundedResults.currencyTo || "USD";
-  console.log(roundedResults);
+  const [currencyFrom, setCurrencyFrom] = useState("");
+  const [currencyTo, setCurrencyTo] = useState("");
+  // console.log(roundedResults);
 
   const dates = historicalResults.map((result) => {
     return result.date;
@@ -58,10 +58,16 @@ export default function HistoricalRate() {
     ],
   };
 
+  const sendCurrenciesData = (currencyFrom, currencyTo) => {
+    setCurrencyFrom(currencyFrom);
+    setCurrencyTo(currencyTo);
+  };
+
   return (
     <Container>
       <h4>Historical Exchange Rate Checker</h4>
       <Form>
+        <CurrencyInput sendCurrenciesData={sendCurrenciesData} />
         <Row>
           <Col>
             <Form.Group>

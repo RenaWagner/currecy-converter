@@ -7,24 +7,27 @@ import {
   selectRoundedResult,
 } from "../../store/currency/selectors";
 
-export default function CurrencyInput() {
+export default function CurrencyInput(props) {
   const dispatch = useDispatch();
-  const today =
-    new Date().getFullYear() +
-    "-" +
-    ("0" + (new Date().getMonth() + 1)).slice(-2) +
-    "-" +
-    ("0" + new Date().getDate()).slice(-2);
-  const [date, setDate] = useState(today);
-  const [currencyFrom, setCurrencyFrom] = useState("EUR");
-  const [currencyTo, setCurrencyTo] = useState("USD");
-  const [inputAmount, setInputAmount] = useState(0);
-  const result = useSelector(selectRoundedResult);
+  const [currencyFromChild, setCurrencyFromChild] = useState("EUR");
+  const [currencyToChild, setCurrencyToChild] = useState("USD");
   const allCurrencies = useSelector(selectAllCurrecies);
 
   useEffect(() => {
     dispatch(fetchAllCurrencies());
   }, [dispatch]);
+
+  useEffect(() => {
+    props.sendCurrenciesData(currencyFromChild, currencyToChild);
+  }, [currencyFromChild, currencyToChild]);
+
+  const switchCurrencies = (e) => {
+    e.preventDefault();
+    const tempFrom = currencyFromChild;
+    const tempTo = currencyToChild;
+    setCurrencyToChild(tempFrom);
+    setCurrencyFromChild(tempTo);
+  };
 
   return (
     <div>
@@ -34,10 +37,11 @@ export default function CurrencyInput() {
             <Form.Label>Currency:</Form.Label>
             <Form.Control
               as="select"
-              value={currencyFrom}
+              value={currencyFromChild}
               onChange={(e) => {
-                setCurrencyFrom(e.target.value);
+                setCurrencyFromChild(e.target.value);
               }}
+              //   onSelect={currencySubmit()}
             >
               <option value="EUR">EUR</option>
               {allCurrencies.map((currency, index) => {
@@ -50,17 +54,30 @@ export default function CurrencyInput() {
             </Form.Control>
           </Form.Group>
         </Col>
+        <Col md="auto">
+          <button className="img-btn" onClick={switchCurrencies}>
+            <img
+              src="https://iconbox.fun/wp/wp-content/uploads/139_arr_24.svg"
+              alt="Arrow icon"
+              style={{
+                width: 75,
+                marginTop: 10,
+              }}
+            />
+          </button>
+        </Col>
         <Col>
           <Form.Group>
             <Form.Label>Currency:</Form.Label>
             <Form.Control
               as="select"
-              value={currencyTo}
+              value={currencyToChild}
               onChange={(e) => {
-                setCurrencyTo(e.target.value);
+                setCurrencyToChild(e.target.value);
               }}
+              //   onSelect={currencySubmit()}
             >
-              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
               {allCurrencies.map((currency, index) => {
                 return (
                   <option key={index} value={currency}>
