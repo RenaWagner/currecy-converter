@@ -20,6 +20,8 @@ export default function AmountInput(props) {
             <Form.Control
               type="number"
               value={inputAmountChild}
+              min="0.01"
+              step="0.01"
               onChange={(e) => {
                 setInputAmountChild(e.target.value);
               }}
