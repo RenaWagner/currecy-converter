@@ -54,6 +54,7 @@ export default function HistoricalRate() {
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
         data: historicalData,
+        radius: 0,
       },
     ],
   };
@@ -107,8 +108,7 @@ export default function HistoricalRate() {
             fontSize: 20,
           },
           legend: {
-            display: true,
-            position: "right",
+            display: false,
           },
         }}
       />

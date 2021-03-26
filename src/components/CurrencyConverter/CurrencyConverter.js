@@ -5,14 +5,12 @@ import {
   fetchAllCurrencies,
   fetchCurrencyRate,
 } from "../../store/currency/actions";
-import {
-  selectAllCurrecies,
-  selectRoundedResult,
-} from "../../store/currency/selectors";
+import { selectRoundedResult } from "../../store/currency/selectors";
 import "./CurrencyConverter.css";
 
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import CurrencyInput from "../CurrencyInput/CurrencyInput";
+import AmountInput from "../AmountInput/AmountInput";
 
 export default function CurrencyConverter() {
   const dispatch = useDispatch();
@@ -27,7 +25,6 @@ export default function CurrencyConverter() {
   const [currencyTo, setCurrencyTo] = useState("USD");
   const [inputAmount, setInputAmount] = useState(0);
   const result = useSelector(selectRoundedResult);
-  const allCurrencies = useSelector(selectAllCurrecies);
 
   useEffect(() => {
     dispatch(fetchAllCurrencies());
@@ -38,13 +35,13 @@ export default function CurrencyConverter() {
     dispatch(fetchCurrencyRate(date, currencyFrom, currencyTo, inputAmount));
   };
 
-  const switchCurrencies = (e) => {
-    e.preventDefault();
-    const tempFrom = currencyFrom;
-    const tempTo = currencyTo;
-    setCurrencyTo(tempFrom);
-    setCurrencyFrom(tempTo);
-    console.log(tempTo);
+  const sendCurrenciesData = (currencyFrom, currencyTo) => {
+    setCurrencyFrom(currencyFrom);
+    setCurrencyTo(currencyTo);
+  };
+
+  const sendAmountData = (amountInput) => {
+    setInputAmount(amountInput);
   };
 
   return (
@@ -65,76 +62,8 @@ export default function CurrencyConverter() {
       </Form>
 
       <Form>
-        <Row>
-          <Col>
-            <Form.Group>
-              <Form.Label>Currency:</Form.Label>
-              <Form.Control
-                as="select"
-                value={currencyFrom}
-                onChange={(e) => {
-                  setCurrencyFrom(e.target.value);
-                }}
-              >
-                <option value="EUR">EUR</option>
-                {allCurrencies.map((currency, index) => {
-                  return (
-                    <option key={index} value={currency}>
-                      {currency}
-                    </option>
-                  );
-                })}
-              </Form.Control>
-              <Form.Label>Amount:</Form.Label>
-              <Form.Control
-                type="number"
-                value={inputAmount}
-                onChange={(e) => {
-                  setInputAmount(e.target.value);
-                }}
-              />
-            </Form.Group>
-          </Col>
-          <Col md="auto">
-            <button className="img-btn" onClick={switchCurrencies}>
-              <img
-                src="https://iconbox.fun/wp/wp-content/uploads/139_arr_24.svg"
-                alt="Arrow icon"
-                style={{
-                  width: 75,
-                  marginTop: 10,
-                }}
-              />
-            </button>
-          </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label>Currency:</Form.Label>
-              <Form.Control
-                as="select"
-                value={currencyTo}
-                onChange={(e) => {
-                  setCurrencyTo(e.target.value);
-                }}
-              >
-                <option value="EUR">EUR</option>
-                {allCurrencies.map((currency, index) => {
-                  return (
-                    <option key={index} value={currency}>
-                      {currency}
-                    </option>
-                  );
-                })}
-              </Form.Control>
-              <Form.Label>Amount:</Form.Label>
-              <Form.Control
-                type="number"
-                disabled
-                value={result.resultAmount ? result.resultAmount : "0"}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
+        <CurrencyInput sendCurrenciesData={sendCurrenciesData} />
+        <AmountInput sendAmountData={sendAmountData} />
         <Button variant="success" onClick={currencyAmountInput} block>
           Convert!
         </Button>
