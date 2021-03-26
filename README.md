@@ -1,42 +1,88 @@
-# Frontend template
+# Currecny Converter & Hitorical Exchange Rate Tracker App
 
-This is a simple react/redux/jwt template to start a project quickly
+This app will allow you to convert the amount from the source currency to the target curreny. The exchange rate source is [ECB](https://exchangeratesapi.io/) API.
+Also, in the "Hitorical Exchange Rate Tracker", you can view the historical exchange rates evolution on your preferred period.
 
-## Table of contents:
+You can find the live version [here](https://medium.com/@jacksonz666/readme-best-practices-7c9ad6c2303).
 
-- **[Setup](#setup-how-to-use-this-template)**
-- **[Create React App docs](#cra-docs)**
+# Motivation
 
-## SETUP How to use this template
+I wanted to practice my Redux skills and learn how to make a chart using [react-chartjs-2](https://www.npmjs.com/package/react-chartjs-2).
 
-1. Create a new project based on this template using the `Use this template` button
+## Tech stack used
 
-![HOW_TO_USE](https://user-images.githubusercontent.com/20372832/77003323-70966180-695d-11ea-8abe-b362d57135f3.gif)
+- React
+- Redux
+- Node.js
+- React-Bootstrap
 
-2. Clone the app
+# Getting Started with Create React App
 
-```
-git clone git@github.com:YOUR_GITHUB_NAME/YOUR_PROJECT_NAME.git
-```
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-3. cd into your project
+## Available Scripts
 
-```
-cd YOUR_PROJECT_NAME
-```
+In the project directory, you can run:
 
-4. install dependencies
+### `npm start`
 
-```
-npm install
-```
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-5. Start development server with npm start
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-```
-npm start
-```
+### `npm test`
 
-## CRA docs
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-The normal Create React App docs can be found in [CRA_DOCS.md](./CRA_DOCS.md)
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
