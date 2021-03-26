@@ -38,7 +38,6 @@ export default function CurrencyInput(props) {
               onChange={(e) => {
                 setCurrencyFromChild(e.target.value);
               }}
-              //   onSelect={currencySubmit()}
             >
               <option value="EUR">EUR</option>
               {allCurrencies.map((currency, index) => {
@@ -52,7 +51,7 @@ export default function CurrencyInput(props) {
           </Form.Group>
         </Col>
         <Col md="auto">
-          <button className="img-btn" onClick={switchCurrencies}>
+          <button className="img-btn" onClick={switchCurrencies} type="button">
             <img
               src="https://iconbox.fun/wp/wp-content/uploads/139_arr_24.svg"
               alt="Arrow icon"
@@ -72,7 +71,6 @@ export default function CurrencyInput(props) {
               onChange={(e) => {
                 setCurrencyToChild(e.target.value);
               }}
-              //   onSelect={currencySubmit()}
             >
               <option value="EUR">EUR</option>
               {allCurrencies.map((currency, index) => {
