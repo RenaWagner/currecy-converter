@@ -1,7 +1,6 @@
 import React from "react";
 import { Jumbotron } from "react-bootstrap";
 import CurrencyConverter from "../../components/CurrencyConverter/CurrencyConverter";
-import HistoricalRate from "../../components/HistoricalRate/HistoricalRate";
 
 export default function HomePage() {
   return (

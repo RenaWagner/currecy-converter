@@ -2,32 +2,17 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Line } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
-import { selectRoundedResult } from "../../store/currency/selectors";
 import { fetchHistoricalData } from "../../store/historicalRate/actions";
 import { selectHistoricalData } from "../../store/historicalRate/selectors";
 import CurrencyInput from "../CurrencyInput/CurrencyInput";
+import DateInput from "../DateInput/DateInput";
 
 export default function HistoricalRate() {
   const dispatch = useDispatch();
-  const today =
-    new Date().getFullYear() +
-    "-" +
-    ("0" + (new Date().getMonth() + 1)).slice(-2) +
-    "-" +
-    ("0" + new Date().getDate()).slice(-2);
 
-  const yearAgo =
-    new Date().getFullYear() -
-    1 +
-    "-" +
-    ("0" + (new Date().getMonth() + 1)).slice(-2) +
-    "-" +
-    ("0" + new Date().getDate()).slice(-2);
-
-  const [startDate, setStartDate] = useState(yearAgo);
-  const [endDate, setEndDate] = useState(today);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const historicalResults = useSelector(selectHistoricalData);
-  const roundedResults = useSelector(selectRoundedResult);
   const [currencyFrom, setCurrencyFrom] = useState("");
   const [currencyTo, setCurrencyTo] = useState("");
   // console.log(roundedResults);
@@ -64,6 +49,14 @@ export default function HistoricalRate() {
     setCurrencyTo(currencyTo);
   };
 
+  const sendStartDateInput = (startDateInput) => {
+    setStartDate(startDateInput);
+  };
+
+  const sendEndDateInput = (endDateInput) => {
+    setEndDate(endDateInput);
+  };
+
   return (
     <Container>
       <h4>Historical Exchange Rate Checker</h4>
@@ -71,28 +64,22 @@ export default function HistoricalRate() {
         <CurrencyInput sendCurrenciesData={sendCurrenciesData} />
         <Row>
           <Col>
-            <Form.Group>
-              <Form.Label>From:</Form.Label>
-              <Form.Control
-                type="date"
-                value={startDate}
-                onChange={(e) => {
-                  setStartDate(e.target.value);
-                }}
-              />
-            </Form.Group>
+            <DateInput
+              sendDateInput={sendStartDateInput}
+              label={"From:"}
+              textClassName={""}
+              text={""}
+              day={"yesterday"}
+            />
           </Col>
           <Col>
-            <Form.Group>
-              <Form.Label>To:</Form.Label>
-              <Form.Control
-                type="date"
-                value={endDate}
-                onChange={(e) => {
-                  setEndDate(e.target.value);
-                }}
-              />
-            </Form.Group>
+            <DateInput
+              sendDateInput={sendEndDateInput}
+              label={"To:"}
+              textClassName={""}
+              text={""}
+              day={"today"}
+            />
           </Col>
         </Row>
         <Button variant="success" onClick={historicalDataClicked} block>

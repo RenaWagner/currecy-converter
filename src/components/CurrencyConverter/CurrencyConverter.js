@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   fetchAllCurrencies,
   fetchCurrencyRate,
 } from "../../store/currency/actions";
-import { selectRoundedResult } from "../../store/currency/selectors";
+
 import "./CurrencyConverter.css";
 
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import CurrencyInput from "../CurrencyInput/CurrencyInput";
 import AmountInput from "../AmountInput/AmountInput";
+import DateInput from "../DateInput/DateInput";
 
 export default function CurrencyConverter() {
   const dispatch = useDispatch();
@@ -24,7 +25,6 @@ export default function CurrencyConverter() {
   const [currencyFrom, setCurrencyFrom] = useState("EUR");
   const [currencyTo, setCurrencyTo] = useState("USD");
   const [inputAmount, setInputAmount] = useState(0);
-  const result = useSelector(selectRoundedResult);
 
   useEffect(() => {
     dispatch(fetchAllCurrencies());
@@ -43,22 +43,21 @@ export default function CurrencyConverter() {
   const sendAmountData = (amountInput) => {
     setInputAmount(amountInput);
   };
+  const sendDateInput = (dateInput) => {
+    setDate(dateInput);
+  };
 
   return (
     <Container>
       <h4>Currency Converter</h4>
       <Form>
-        <Form.Group>
-          <Form.Label>Date:</Form.Label>
-          <Form.Control
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-          <Form.Text className="text-muted">
-            Choose the date that you want to use for conversion.
-          </Form.Text>
-        </Form.Group>
+        <DateInput
+          sendDateInput={sendDateInput}
+          label={"Date:"}
+          textClassName={"text-muted"}
+          text={"Choose the date that you want to use for conversion."}
+          day={"today"}
+        />
       </Form>
 
       <Form>

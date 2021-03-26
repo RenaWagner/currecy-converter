@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCurrencies } from "../../store/currency/actions";
-import {
-  selectAllCurrecies,
-  selectRoundedResult,
-} from "../../store/currency/selectors";
+import { selectAllCurrecies } from "../../store/currency/selectors";
 
 export default function CurrencyInput(props) {
   const dispatch = useDispatch();
