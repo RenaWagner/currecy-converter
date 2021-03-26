@@ -20,7 +20,7 @@ export default function DateInput(props) {
 
   useEffect(() => {
     props.sendDateInput(date);
-  }, [date]);
+  }, [date, props]);
 
   return (
     <div>

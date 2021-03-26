@@ -9,7 +9,7 @@ export default function AmountInput(props) {
 
   useEffect(() => {
     props.sendAmountData(inputAmountChild);
-  }, [inputAmountChild]);
+  }, [inputAmountChild, props]);
 
   return (
     <div>
@@ -27,12 +27,11 @@ export default function AmountInput(props) {
           </Form.Group>
         </Col>
         <Col md="auto">
-          <img
+          <p
             style={{
               width: 75,
-              marginTop: 10,
             }}
-          />
+          ></p>
         </Col>
         <Col>
           <Form.Group>

@@ -16,7 +16,7 @@ export default function CurrencyInput(props) {
 
   useEffect(() => {
     props.sendCurrenciesData(currencyFromChild, currencyToChild);
-  }, [currencyFromChild, currencyToChild]);
+  }, [currencyFromChild, currencyToChild, props]);
 
   const switchCurrencies = (e) => {
     e.preventDefault();
