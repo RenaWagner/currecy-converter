@@ -3,7 +3,7 @@
 This app will allow you to convert the amount from the source currency to the target curreny. The exchange rate source is [ECB](https://exchangeratesapi.io/) API.
 Also, in the "Hitorical Exchange Rate Tracker", you can view the historical exchange rates evolution on your preferred period.
 
-You can find the live version [here](https://medium.com/@jacksonz666/readme-best-practices-7c9ad6c2303).
+You can find the live version [here](https://currecy-converter-rw.netlify.app).
 
 # Motivation
 
