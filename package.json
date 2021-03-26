@@ -21,10 +21,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI= npm run build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "CI": "npm run build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
